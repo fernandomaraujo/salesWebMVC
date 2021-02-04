@@ -8,6 +8,8 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
+// cola pro arquivo cshtml.g.cs: using SalesWebMVC.Models.ViewModels;
+
 namespace SalesWebMVC
 {
     public class Program

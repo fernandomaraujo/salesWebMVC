@@ -8,7 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
-// cola pro arquivo cshtml.g.cs: using SalesWebMVC.Models.ViewModels;
+// cola pro arquivo cshtml.g.cs: using SalesWebMVC.Models.ViewModels; ou @model SalesWebMVC.Models.ViewModels.ErrorViewModel
 
 namespace SalesWebMVC
 {

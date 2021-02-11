@@ -23,5 +23,12 @@ namespace SalesWebMVC.Services
             // Convertendo pra lista
             return _context.Seller.ToList();
         }
+
+        // Insirir um novo vendedor no banco de dados
+        public void Insert(Seller obj)
+        {
+            _context.Add(obj);
+            _context.SaveChanges();
+        }
     }
 }

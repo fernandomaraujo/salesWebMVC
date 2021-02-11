@@ -41,12 +41,12 @@ namespace SalesWebMVC.Data
             Department d4 = new Department(4, "Books");
 
             // Vendedores
-            Seller s1 = new Seller(1, "Pedro Lopes", "pedrolopes@email.com", new DateTime(1995, 9, 20), 1200.0, d2);
-            Seller s2 = new Seller(2, "Brenda Santos", "brendasantos@email.com", new DateTime(1995, 10, 10), 1200.0, d3);
-            Seller s3 = new Seller(3, "Guilherme Lima", "guilhermelima@email.com", new DateTime(1996, 1, 7), 1200.0, d1);
-            Seller s4 = new Seller(4, "Dianna Puertas", "diannapuertas@email.com", new DateTime(1996, 8, 25), 1200.0, d4);
-            Seller s5 = new Seller(5, "Andreina Costa", "andreinacosta@email.com", new DateTime(2000, 5, 29), 1200.0, d3);
-            Seller s6 = new Seller(6, "Fernando Araujo", "fernandoaraujo@email.com", new DateTime(1996, 12, 16), 1200.0, d1);
+            Seller s1 = new Seller(1, "Pedro Lopes", "pedrolopes@email.com", new DateTime(1995, 9, 20), 2000.0, d2);
+            Seller s2 = new Seller(2, "Brenda Santos", "brendasantos@email.com", new DateTime(1995, 10, 10), 2000.0, d3);
+            Seller s3 = new Seller(3, "Guilherme Lima", "guilhermelima@email.com", new DateTime(1996, 1, 7), 2000.0, d1);
+            Seller s4 = new Seller(4, "Dianna Puertas", "diannapuertas@email.com", new DateTime(1996, 8, 25), 2000.0, d4);
+            Seller s5 = new Seller(5, "Andreina Costa", "andreinacosta@email.com", new DateTime(2000, 5, 29), 2000.0, d3);
+            Seller s6 = new Seller(6, "Fernando Araujo", "fernandoaraujo@email.com", new DateTime(1996, 12, 16), 2000.0, d1);
 
             // Vendas
             SalesRecord r1 = new SalesRecord(1, new DateTime(2021, 09, 25), 11000.0, SaleStatus.Billed, s1);

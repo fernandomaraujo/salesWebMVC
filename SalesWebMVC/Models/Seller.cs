@@ -16,6 +16,9 @@ namespace SalesWebMVC.Models
         // Um vendedor possuí apenas um departamento
         public Department Department { get; set; }
 
+        // Id do departamento, para ser usado como chave estrangeira na tabela de funcionários
+        public int DepartmentId { get; set; }
+
         // Um vendedor pode possuir várias vendas. Já instanciando
         public ICollection<SalesRecord> Sales { get; set; } = new List<SalesRecord>();
 

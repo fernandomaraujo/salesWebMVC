@@ -45,6 +45,7 @@ namespace SalesWebMVC
             // Registrando serviços no sistema de injeção de dependências da aplicação
             services.AddScoped<SeedingService>();
             services.AddScoped<SellerService>();
+            services.AddScoped<DepartmentService>();
 
         }
 

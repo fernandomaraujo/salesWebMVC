@@ -34,6 +34,7 @@ namespace SalesWebMVC.Controllers
 
         public IActionResult Create()
         {
+
             // Carregando todos os departamentos
             var departments = _departmentService.FindAll();
 
@@ -51,6 +52,21 @@ namespace SalesWebMVC.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(Seller seller)
         {
+            // Prevenindo validação caso o Javascript esteja desabilitado no navegador
+            // Se o seller não for válido
+            if (!ModelState.IsValid)
+            {
+ 
+                var departments = _departmentService.FindAll();
+                var viewModel = new SellerFormViewModel
+                {
+                    Seller = seller,
+                    Departments = departments
+                };
+
+                return View(viewModel);
+            }
+
             _sellerService.Insert(seller);
 
             // Redirecionando ação para a tela Index
@@ -158,8 +174,21 @@ namespace SalesWebMVC.Controllers
         public IActionResult Edit(int id, Seller seller)
         {
 
+            // Prevenindo validação caso o Javascript esteja desabilitado no navegador
+            // Se o seller não for válido
+            if (!ModelState.IsValid)
+            {
+                var departments = _departmentService.FindAll();
+                var viewModel = new SellerFormViewModel
+                {
+                    Seller = seller,
+                    Departments = departments
+                };
+                return View(viewModel);
+            }
+
             // O id do vendedor, não pode ser diferença do id da requisição
-            if(id != seller.Id)
+            if (id != seller.Id)
             {
                 return RedirectToAction(nameof(Error), new
                 {

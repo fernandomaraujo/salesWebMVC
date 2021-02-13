@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using SalesWebMVC.Data;
 using SalesWebMVC.Models;
 using Microsoft.EntityFrameworkCore;
+using SalesWebMVC.Services.Exceptions;
 
 namespace SalesWebMVC.Services
 {
@@ -40,12 +41,35 @@ namespace SalesWebMVC.Services
                 .FirstOrDefault(obj => obj.Id == id);
         }
 
-        // Recomendo vendedor por seu Id
+        // Removendo vendedor por seu Id
         public void Remove(int id)
         {
             var obj = _context.Seller.Find(id);
             _context.Seller.Remove(obj);
             _context.SaveChanges();
+        }
+
+        public void Update(Seller obj)
+        {
+            // Se não existe algum registro no banco de dados, com a condição (no caso, Id)
+            if (!_context.Seller.Any(x => x.Id == obj.Id))
+            {
+                // Lança exceção
+                throw new NotFoundException("Id not found");
+            }
+
+            // Se existe, atualiza. Depois salva mudanças
+            try
+            {
+                _context.Update(obj);
+                _context.SaveChanges();
+
+            } 
+            catch(DbUpdateConcurrencyException e)
+            {
+                throw new DbConcurrencyException(e.Message);
+            }
+            
         }
     }
 }

@@ -44,10 +44,19 @@ namespace SalesWebMVC.Services
         // Removendo vendedor por seu Id
         public async Task RemoveAsync(int id)
         {
-            var obj = await _context.Seller.FindAsync(id);
+            try
+            {
 
-            _context.Seller.Remove(obj);
-            await _context.SaveChangesAsync();
+                var obj = await _context.Seller.FindAsync(id);
+
+                _context.Seller.Remove(obj);
+                await _context.SaveChangesAsync();
+
+            }
+            catch (DbUpdateException e)
+            {
+                throw new IntegrityException("Can't delete seller because she/he has sales.");
+            }
         }
 
         public async Task UpdateAsync(Seller obj)

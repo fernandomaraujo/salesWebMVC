@@ -25,18 +25,18 @@ namespace SalesWebMVC.Controllers
             _departmentService = departmentService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var list = _sellerService.FindAll();
+            var list = await _sellerService.FindAllAsync();
 
             return View(list);
         }
 
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
 
             // Carregando todos os departamentos
-            var departments = _departmentService.FindAll();
+            var departments = await _departmentService.FindAllAsync();
 
             // Instanciando objeto do ViewModel
             var viewModel = new SellerFormViewModel
@@ -50,14 +50,14 @@ namespace SalesWebMVC.Controllers
         // Recebendo um objeto vendedor, que veio na requisição
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Seller seller)
+        public async Task<IActionResult> Create(Seller seller)
         {
             // Prevenindo validação caso o Javascript esteja desabilitado no navegador
             // Se o seller não for válido
             if (!ModelState.IsValid)
             {
  
-                var departments = _departmentService.FindAll();
+                var departments = await _departmentService.FindAllAsync();
                 var viewModel = new SellerFormViewModel
                 {
                     Seller = seller,
@@ -67,14 +67,14 @@ namespace SalesWebMVC.Controllers
                 return View(viewModel);
             }
 
-            _sellerService.Insert(seller);
+            await _sellerService.InsertAsync(seller);
 
             // Redirecionando ação para a tela Index
             return RedirectToAction(nameof(Index));
         }
 
         // Id opcional
-        public IActionResult Delete(int? id)
+        public async Task<IActionResult> Delete(int? id)
         {
             // Se nulo, requisição foi de forma indevida
             if(id == null)
@@ -86,7 +86,7 @@ namespace SalesWebMVC.Controllers
             }
 
             // Pegando o objeto
-            var obj = _sellerService.FindById(id.Value);
+            var obj = await _sellerService.FindByIdAsync(id.Value);
 
             // Se não existir
             if(obj == null)
@@ -102,14 +102,14 @@ namespace SalesWebMVC.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            _sellerService.Remove(id);
+            await _sellerService.RemoveAsync(id);
             return RedirectToAction(nameof(Index));
         }
 
         // Id opcional
-        public IActionResult Details(int? id)
+        public async Task<IActionResult> Details(int? id)
         {
 
             // Se nulo, requisição foi de forma indevida
@@ -122,7 +122,7 @@ namespace SalesWebMVC.Controllers
             }
 
             // Pegando o objeto
-            var obj = _sellerService.FindById(id.Value);
+            var obj = await _sellerService.FindByIdAsync(id.Value);
 
             // Se não existir
             if (obj == null)
@@ -137,7 +137,7 @@ namespace SalesWebMVC.Controllers
         }
 
         // Id opcional
-        public IActionResult Edit(int? id)
+        public async Task<IActionResult> Edit(int? id)
         {
             if(id == null)
             {
@@ -147,7 +147,7 @@ namespace SalesWebMVC.Controllers
                 });
             }
 
-            var obj = _sellerService.FindById(id.Value);
+            var obj = await _sellerService.FindByIdAsync(id.Value);
             
             if(obj == null)
             {
@@ -159,7 +159,7 @@ namespace SalesWebMVC.Controllers
 
             // Se tudo existir
 
-            List<Department> departments = _departmentService.FindAll();
+            List<Department> departments = await _departmentService.FindAllAsync();
             SellerFormViewModel viewModel = new SellerFormViewModel
             {
                 Seller = obj,
@@ -171,14 +171,14 @@ namespace SalesWebMVC.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, Seller seller)
+        public async Task<IActionResult> Edit(int id, Seller seller)
         {
 
             // Prevenindo validação caso o Javascript esteja desabilitado no navegador
             // Se o seller não for válido
             if (!ModelState.IsValid)
             {
-                var departments = _departmentService.FindAll();
+                var departments = await _departmentService.FindAllAsync();
                 var viewModel = new SellerFormViewModel
                 {
                     Seller = seller,
@@ -199,7 +199,7 @@ namespace SalesWebMVC.Controllers
             try
             {
                 // Se tudo certo
-                _sellerService.Update(seller);
+                await _sellerService.UpdateAsync(seller);
 
                 // Finalizado, redireciona para página index
                 return RedirectToAction(nameof(Index));
